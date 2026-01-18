@@ -9,9 +9,9 @@ type Pagination struct {
 	HasPrevious bool `json:"has_previous"`
 }
 
-func NewPagination(total, limit, page int) Pagination {
+func NewPagination(total, limit, page int) *Pagination {
 	totalPages := (total + limit - 1) / limit
-	return Pagination{
+	return &Pagination{
 		Total:       total,
 		Page:        page,
 		PerPage:     limit,

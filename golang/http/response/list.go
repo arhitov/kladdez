@@ -1,11 +1,35 @@
 package response
 
+import "time"
+
 type ItemsResponse[T any] struct {
 	BaseResponse
 	Error      *Error       `json:"error,omitempty"`
 	Data       DataItems[T] `json:"data,omitempty"`
 	Pagination *Pagination  `json:"pagination,omitempty"`
-	Meta       MetaList     `json:"meta,omitempty"`
+	Meta       *MetaList    `json:"meta,omitempty"`
+}
+
+func NewItemsResponse[T any](
+	list []T,
+	total, limit, page int,
+) *ItemsResponse[T] {
+	return &ItemsResponse[T]{
+		BaseResponse: BaseResponse{
+			Status:    StatusSuccess,
+			Timestamp: time.Now(),
+		},
+		Data: DataItems[T]{
+			Items: list,
+			Count: len(list),
+		},
+		Pagination: NewPagination(total, limit, page),
+		Meta: &MetaList{
+			Total: total,
+			Page:  page,
+			Limit: limit,
+		},
+	}
 }
 
 type DataItems[T any] struct {
