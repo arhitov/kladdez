@@ -32,6 +32,12 @@ func NewItemsResponse[T any](
 	}
 }
 
+func (r *ItemsResponse[T]) SetList(list []T) *ItemsResponse[T] {
+	r.Data.Items = list
+	r.Data.Count = len(list)
+	return r
+}
+
 type DataItems[T any] struct {
 	Items []T `json:"items"`
 	Count int `json:"count"`
