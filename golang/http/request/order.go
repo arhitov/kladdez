@@ -17,10 +17,10 @@ type Order struct {
 	Sort string `json:"sort,omitempty" key:"sort" validate:"omitempty,string"`
 }
 
-// Parse парсит строку Sort в map[поле]направление.
+// ParseOrderMap парсит строку Sort в map[поле]направление.
 // Поддерживаемый формат: "field1,-field2,+field3"
 // Возвращает nil, если Sort пустая.
-func (o *Order) Parse() map[string]SortDir {
+func (o *Order) ParseOrderMap() map[string]SortDir {
 	if o.Sort == "" {
 		return nil
 	}
