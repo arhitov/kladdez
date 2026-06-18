@@ -32,6 +32,17 @@ func NewItemsResponse[T any](
 	}
 }
 
+func NewDataItems[T any](list []T) *DataItems[T] {
+	if list == nil {
+		// Ожидается список элементов, а не nil
+		list = make([]T, 0)
+	}
+	return &DataItems[T]{
+		Items: list,
+		Count: len(list),
+	}
+}
+
 func (r *ItemsResponse[T]) SetList(list []T) *ItemsResponse[T] {
 	r.Data.Items = list
 	r.Data.Count = len(list)
