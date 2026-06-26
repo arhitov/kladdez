@@ -18,8 +18,7 @@ func ConvValue[T any](val any, def T) (T, error) {
 		case string:
 			return any(strconv.Itoa(v)).(T), nil
 		default:
-			err := fmt.Errorf("unsupported type [%T] from int", zero)
-			return val.(T), err
+			return val.(T), fmt.Errorf("unsupported type [%T] from int", zero)
 		}
 	// Преобразовываем из string в T
 	case string:
@@ -39,8 +38,7 @@ func ConvValue[T any](val any, def T) (T, error) {
 				return any(r).(T), nil
 			}
 		default:
-			err := fmt.Errorf("unsupported type [%T] from string", zero)
-			return val.(T), err
+			return val.(T), fmt.Errorf("unsupported type [%T] from string", zero)
 		}
 	// Преобразовываем из float64 в T
 	case float64:
@@ -48,12 +46,10 @@ func ConvValue[T any](val any, def T) (T, error) {
 		case int:
 			return any(int(math.Round(v))).(T), nil
 		default:
-			err := fmt.Errorf("unsupported type [%T] from float64", zero)
-			return val.(T), err
+			return val.(T), fmt.Errorf("unsupported type [%T] from float64", zero)
 		}
 	default:
-		err := fmt.Errorf("unsupported type [%T] to [%T]: %+v", val, zero, val)
-		return val.(T), err
+		return val.(T), fmt.Errorf("unsupported type [%T] to [%T]: %+v", val, zero, val)
 	}
 }
 
