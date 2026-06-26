@@ -1,6 +1,7 @@
 package goconv
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"reflect"
@@ -120,4 +121,11 @@ func AnyToInt64(v any, defaultValue int64) (int64, error) {
 		}
 		return defaultValue, fmt.Errorf("неподдерживаемый тип: %T", v)
 	}
+}
+
+func SafeInt64ToInt(v int64) (int, error) {
+	if v < math.MinInt || v > math.MaxInt {
+		return 0, errors.New("value out of int range")
+	}
+	return int(v), nil
 }

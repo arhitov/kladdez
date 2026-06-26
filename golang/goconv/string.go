@@ -2,6 +2,7 @@ package goconv
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 )
 
@@ -32,4 +33,23 @@ func AnyToStringDefault(val any, def string) string {
 	} else {
 		return v
 	}
+}
+
+func ExtractNumberByIdPrefix(id, prefix string) (int, bool) {
+	re := regexp.MustCompile(fmt.Sprintf(`^%s(\d+)$`, prefix))
+	matches := re.FindStringSubmatch(id)
+	if len(matches) != 2 {
+		return 0, false
+	}
+
+	num, err := strconv.ParseInt(matches[1], 10, 64)
+	if err != nil {
+		return 0, false
+	}
+
+	numInt, err := SafeInt64ToInt(num)
+	if err != nil {
+		return 0, false
+	}
+	return numInt, true
 }
