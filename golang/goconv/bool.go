@@ -4,6 +4,11 @@ import (
 	"fmt"
 )
 
+func AnyToBoolWithOutError(v any) bool {
+	r, _ := AnyToBool(v)
+	return r
+}
+
 func AnyToBool(v any) (bool, error) {
 	switch x := v.(type) {
 	case bool:
