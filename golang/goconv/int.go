@@ -52,6 +52,14 @@ func AnyToInt(v any, defaultValue int) (int, error) {
 	}
 }
 
+func AnyToInt64OrDefault(v any, defaultValue int64) int64 {
+	if value, err := AnyToInt64(v, defaultValue); err == nil {
+		return value
+	} else {
+		return defaultValue
+	}
+}
+
 func AnyToInt64(v any, defaultValue int64) (int64, error) {
 	if v == nil {
 		return defaultValue, nil
