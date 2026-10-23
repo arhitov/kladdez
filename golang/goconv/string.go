@@ -10,6 +10,7 @@ func AnyToString(val any) (string, error) {
 	if val == nil {
 		return "", nil
 	}
+
 	switch value := val.(type) {
 	case float32:
 		return fmt.Sprintf("%g", value), nil
@@ -18,10 +19,16 @@ func AnyToString(val any) (string, error) {
 	case int:
 		return strconv.Itoa(value), nil
 	case *int:
+		if value == nil {
+			return "", nil
+		}
 		return strconv.Itoa(*value), nil
 	case string:
 		return value, nil
 	case *string:
+		if value == nil {
+			return "", nil
+		}
 		return *value, nil
 	case bool:
 		return strconv.FormatBool(value), nil
